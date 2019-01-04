@@ -126,7 +126,8 @@ namespace PayUApplication
                 }
 
                 post.Append("hash=");
-                post.Append(hash);
+                var hashVal=  GetStringFromHash(hash);
+                post.Append(hashVal);
                 post.Append("&");
                 Log.Info(TAG, "SHA result is " + hash);
             }
@@ -202,12 +203,21 @@ namespace PayUApplication
             byte[] hash = sha512.ComputeHash(bytes);
             return GetStringFromHash(hash);
         }
+        //private static string GetStringFromHash(byte[] hash)
+        //{
+        //    System.Text.StringBuilder result = new System.Text.StringBuilder();
+        //    for (int i = 0; i < hash.Length; i++)
+        //    {
+        //        result.Append(hash[i].ToString("X2"));
+        //    }
+        //    return result.ToString();
+        //}
         private static string GetStringFromHash(byte[] hash)
         {
-            System.Text.StringBuilder result = new System.Text.StringBuilder();
+            Java.Lang.StringBuilder result = new Java.Lang.StringBuilder();
             for (int i = 0; i < hash.Length; i++)
             {
-                result.Append(hash[i].ToString("X2"));
+                result.Append(hash[i].ToString("X2").ToLower());
             }
             return result.ToString();
         }
